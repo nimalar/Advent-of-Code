@@ -33,5 +33,5 @@ fn main()
 		
 	}
 	println!("First star: {}", result_1);
-	println!("First star: {}", result_2);
+	println!("Second star: {}", result_2);
 }
