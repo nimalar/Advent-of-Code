@@ -44,7 +44,6 @@ fn main()
 	
 	for row in contents.lines()
 	{
-		
 		let parts:Vec<&str> = row.trim().split_whitespace().collect();
 		instructions.push(Instruction{operation : parts[0].to_string(), argument : parts[1].parse().unwrap() });
 	}
