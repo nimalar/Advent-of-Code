@@ -39,6 +39,6 @@ fn main()
 		}
 	}
 	
-	println!("First star: {:?}", differences[0] * differences[2]);
-	println!("Second star: {:?}", *option_vec.last().unwrap());
+	println!("First star: {}", differences[0] * differences[2]);
+	println!("Second star: {}", *option_vec.last().unwrap());
 }
