@@ -80,7 +80,7 @@ fn main()
 	let filename = &args[1];
 	let mut f = File::open(filename).expect("File not found");
 	let mut contents = String::new();
-	f.read_to_string(&mut contents).expect("sozething went wrong reading the file");
+	f.read_to_string(&mut contents).expect("something went wrong reading the file");
 	let mut seats:Vec<Vec<char>> = Vec::new();
 	
 	for row in contents.lines()
