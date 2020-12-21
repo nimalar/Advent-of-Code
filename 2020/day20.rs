@@ -139,7 +139,6 @@ fn main()
 	let mut id = 0;
 	let mut photos:HashMap<usize, Vec<Vec<char>>> = HashMap::new();
 	let mut square:HashMap<(isize, isize), usize> = HashMap::new();
-	let mut matched:HashMap<usize, Vec<(isize, isize)>> = HashMap::new();
 	let mut keys:Vec<usize> = Vec::new();
 	let mut min_index = (0, 0);
 	let mut max_index = (0, 0);
@@ -178,28 +177,22 @@ fn main()
 			{
 				let to_be_matched = photos.get(square.get(&square_key).unwrap()).unwrap().to_vec();
 				let mut matching = photos.get_mut(&keys[key]).unwrap();
-				let mut already_tested:Vec<(isize, isize)> = Vec::new();
-				match matched.get(&key)
-				{
-					Some(x) => already_tested = x.to_vec(),
-					None => {},
-				}
-				if !square.contains_key(&(square_key.0, square_key.1 - 1)) && !already_tested.contains(&(square_key.0, square_key.1 - 1))
+				if !square.contains_key(&(square_key.0, square_key.1 - 1))
 				{
 					index = (square_key.0, square_key.1 - 1);
 					found = match_vertical(to_be_matched.to_vec(), &mut *matching, 0, true);
 				}
-				if !found && !square.contains_key(&(square_key.0, square_key.1 + 1)) && !already_tested.contains(&(square_key.0, square_key.1 + 1))
+				if !found && !square.contains_key(&(square_key.0, square_key.1 + 1))
 				{
 					index = (square_key.0, square_key.1 + 1);
 					found = match_vertical(to_be_matched.to_vec(), &mut *matching, 10 - 1, true);
 				}
-				if !found && !square.contains_key(&(square_key.0 - 1, square_key.1)) && !already_tested.contains(&(square_key.0 - 1, square_key.1))
+				if !found && !square.contains_key(&(square_key.0 - 1, square_key.1))
 				{
 					index = (square_key.0 - 1, square_key.1);
 					found = match_horizontal(to_be_matched.to_vec(), &mut *matching, 0, true);
 				}
-				if !found && !square.contains_key(&(square_key.0 + 1, square_key.1)) && !already_tested.contains(&(square_key.0 + 1, square_key.1))
+				if !found && !square.contains_key(&(square_key.0 + 1, square_key.1))
 				{
 					index = (square_key.0 + 1, square_key.1);
 					found = match_horizontal(to_be_matched.to_vec(), &mut *matching, 10 - 1, true);
@@ -210,45 +203,6 @@ fn main()
 				}
 			}
 			if found
-			{
-				for i in 0..3
-				{
-					for j in 0..3
-					{
-						if (i == 1) != (j == 1)
-						{
-							let square_index = (index.0 + i - 1, index.1 + j - 1);
-							if square.contains_key(&(square_index))
-							{							
-								let to_be_matched_2 = photos.get(square.get(&square_index).unwrap()).unwrap().to_vec();
-								let mut matching = photos.get_mut(&keys[key]).unwrap();
-								if i == 1 && j == 2
-								{
-									found = match_vertical(to_be_matched_2.to_vec(), &mut *matching, 0, false);
-								}
-								if i == 1 && j == 0
-								{
-									found = match_vertical(to_be_matched_2.to_vec(), &mut *matching, 9, false);
-								}
-								if i == 2 && j == 1
-								{
-									found = match_horizontal(to_be_matched_2.to_vec(), &mut *matching, 0, false);
-								}
-								if i == 0 && j == 1
-								{
-									found = match_horizontal(to_be_matched_2.to_vec(), &mut *matching, 9, false);
-								}
-							}
-						}
-					}
-				}
-				if !found
-				{
-					let vecs = matched.entry(keys[key]).or_insert(Vec::new());
-					vecs.push(index);
-				}
-			}
-			if found && !square.contains_key(&index)
 			{
 				square.insert(index, keys[key]);
 				max_index = (cmp::max(index.0, max_index.0), cmp::max(index.1, max_index.1));
