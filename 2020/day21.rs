@@ -35,7 +35,7 @@ fn main()
 				continue;
 			}
 			
-			let mut gene_list = allergenes.get_mut(&gene).unwrap();
+			let gene_list = allergenes.get_mut(&gene).unwrap();
 			let mut i = 0;
 			while i < gene_list.len()
 			{
@@ -90,6 +90,6 @@ fn main()
 		result_2.push_str(",");
 	}
 	
-	println!("{}", result_1);
-	println!("{}", result_2.trim_end_matches(","));
+	println!("First star: {}", result_1);
+	println!("Second star: {}", result_2.trim_end_matches(","));
 }

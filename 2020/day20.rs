@@ -159,7 +159,7 @@ fn main()
 	}
 	loop
 	{
-		'outer: for key in 0..keys.len()
+		for key in 0..keys.len()
 		{
 			let mut index = (0, 0);
 			if square.is_empty()
@@ -176,7 +176,7 @@ fn main()
 			for square_key in square.keys()
 			{
 				let to_be_matched = photos.get(square.get(&square_key).unwrap()).unwrap().to_vec();
-				let mut matching = photos.get_mut(&keys[key]).unwrap();
+				let matching = photos.get_mut(&keys[key]).unwrap();
 				if !square.contains_key(&(square_key.0, square_key.1 - 1))
 				{
 					index = (square_key.0, square_key.1 - 1);

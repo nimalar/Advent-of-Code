@@ -14,9 +14,9 @@ fn main()
 	
 	for row in contents.lines()
 	{
-		let mut parts:Vec<&str> = row.split(": ").collect();
-		let mut rule:Vec<&str> = parts[0].split(" ").collect();
-		let mut numbers:Vec<&str> = rule[0].split("-").collect();
+		let parts:Vec<&str> = row.split(": ").collect();
+		let rule:Vec<&str> = parts[0].split(" ").collect();
+		let numbers:Vec<&str> = rule[0].split("-").collect();
 		
 		let min:usize = numbers[0].parse().unwrap();
 		let max:usize = numbers[1].parse().unwrap();

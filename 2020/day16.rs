@@ -51,7 +51,7 @@ fn main()
 			my_ticket = parts.to_vec();
 		}
 		
-		'outer: for j in 0..parts.len()
+		for j in 0..parts.len()
 		{
 			let mut valid = false;
 			for i in 0..fields.len()

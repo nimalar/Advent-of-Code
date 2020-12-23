@@ -73,6 +73,6 @@ fn main()
 		}
 	}
 	
-	println!("{}", game(players.to_vec(), false).1);
-	println!("{}", game(players.to_vec(), true).1);
+	println!("First star: {}", game(players.to_vec(), false).1);
+	println!("Second star: {}", game(players.to_vec(), true).1);
 }

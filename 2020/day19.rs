@@ -28,7 +28,7 @@ fn get_matches(ref rules:&HashMap<usize, Vec<Vec<usize>>>, ref letters:&HashMap<
 		}
 		let subrules = rules.get(&rule_vec[i]).unwrap();
 		
-		'outer: for subrule in subrules
+		for subrule in subrules
 		{
 			let mut rule_vec_copy = rule_vec.to_vec();
 			for j in 0..subrule.len()

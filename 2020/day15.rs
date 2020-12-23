@@ -12,7 +12,7 @@ fn play_game(ref numbers:&Vec<usize>, turns:usize) -> usize
 	
 	for i in numbers.len()..turns
 	{
-		let mut next_spoken;
+		let next_spoken;
 		match game.get(&last_spoken)
 		{
 			Some(value) => next_spoken = i - 1 - value,

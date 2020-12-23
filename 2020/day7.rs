@@ -43,17 +43,17 @@ fn main()
 	
 	for row in contents.lines()
 	{
-		let outsides:Vec<&str> = row.trim().trim_right_matches('.').split(" contain ").collect();
+		let outsides:Vec<&str> = row.trim().trim_end_matches('.').split(" contain ").collect();
 		let insides:Vec<&str> = outsides[1].split(", ").collect();
 		let mut inside_hash:HashMap<&str, usize> = HashMap::new();
 		for i in 0..insides.len()
 		{
 			if insides[i] != "no other bags"
 			{
-				inside_hash.insert(&insides[i][2..].trim_right_matches('s'), insides[i][0..1].parse::<usize>().unwrap());
+				inside_hash.insert(&insides[i][2..].trim_end_matches('s'), insides[i][0..1].parse::<usize>().unwrap());
 			}
 		}
-		bags.insert(outsides[0].trim_right_matches('s'), inside_hash);
+		bags.insert(outsides[0].trim_end_matches('s'), inside_hash);
 	}
 	for key in bags.keys()
 	{
