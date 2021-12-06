@@ -16,6 +16,19 @@ fn step_size(begin:isize, end:isize) -> isize
 	return 0;
 }
 
+fn calculate_result(ref hash:HashMap<(isize, isize), usize>) -> usize
+{
+	let mut result = 0;
+	for val in hash.values()
+	{
+		if val > &1
+		{
+			result += 1;
+		}
+	}
+	result
+}
+
 fn main() 
 {
 	let args: Vec<String> = env::args().collect();
@@ -51,23 +64,6 @@ fn main()
 		}
 	}
 	
-	let mut result_1 = 0;
-	for val in straight_lines.values()
-	{
-		if val > &1
-		{
-			result_1 += 1;
-		}
-	}
-	let mut result_2 = 0;
-	for val in lines.values()
-	{
-		if val > &1
-		{
-			result_2 += 1;
-		}
-	}
-	
-	println!("First star: {}", result_1);
-	println!("Second star: {}", result_2);
+	println!("First star: {}", calculate_result(straight_lines));
+	println!("Second star: {}", calculate_result(lines));
 }
