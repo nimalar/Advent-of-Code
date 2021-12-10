@@ -4,24 +4,23 @@ use std::io::prelude::*;
 
 fn match_chunks(opener:char, closer:char) -> usize
 {
-	let mut result = 0;
 	if closer == ')' && opener != '(' 
 	{ 
-		result = 3;
+		return 3;
 	}
-	else if closer == ']' && opener != '[' 
+	if closer == ']' && opener != '[' 
 	{ 
-		result = 57;
+		return 57;
 	}
-	else if closer == '}' && opener != '{' 
+	if closer == '}' && opener != '{' 
 	{ 
-		result = 1197;
+		return 1197;
 	}
-	else if closer == '>' && opener != '<' 
+	if closer == '>' && opener != '<' 
 	{ 
-		result = 25137;
+		return 25137;
 	}
-	result
+	return 0;
 }
 
 fn add_openers(opener:char) -> usize
@@ -56,7 +55,7 @@ fn main()
 			match c
 			{
 				'(' | '[' | '{' | '<' => openers.push(c),
-				_ => { score = match_chunks(openers.pop().unwrap(), c) },
+				_ => score = match_chunks(openers.pop().unwrap(), c),
 			}
 			if score > 0
 			{
