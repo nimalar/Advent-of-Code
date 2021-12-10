@@ -46,7 +46,7 @@ fn main()
 	let mut scores:Vec<usize> = Vec::new();
 	let mut result = 0;
 	
-	for row in contents.lines()
+	'lines: for row in contents.lines()
 	{
 		let mut openers:Vec<char> = Vec::new();
 		let mut score = 0;
@@ -60,18 +60,15 @@ fn main()
 			if score > 0
 			{
 				result += score;
-				break;
+				continue 'lines;
 			}
 		}
-		if score == 0
+		while !openers.is_empty()
 		{
-			while !openers.is_empty()
-			{
-				score *= 5;
-				score += add_openers(openers.pop().unwrap());
-			}
-			scores.push(score);
+			score *= 5;
+			score += add_openers(openers.pop().unwrap());
 		}
+		scores.push(score);
 	}
 	scores.sort();
 	

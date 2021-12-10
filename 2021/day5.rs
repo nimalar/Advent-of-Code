@@ -48,12 +48,10 @@ fn main()
 		let y_difference = step_size(beginning[1], end[1]);
 		loop
 		{
-			let value = lines.entry((beginning[0], beginning[1])).or_insert(0);
-			*value += 1;
+			*lines.entry((beginning[0], beginning[1])).or_insert(0) += 1;
 			if x_difference == 0 || y_difference == 0
 			{
-				let straight = straight_lines.entry((beginning[0], beginning[1])).or_insert(0);
-				*straight += 1;
+				*straight_lines.entry((beginning[0], beginning[1])).or_insert(0) += 1;
 			}
 			if beginning[0] == end[0] && beginning[1] == end[1]
 			{

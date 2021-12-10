@@ -20,7 +20,8 @@ fn main()
 		let mut all:Vec<String> = parts[0].trim().split(' ').map(|value| { let mut x = value.chars().collect::<Vec<char>>(); x.sort(); x.into_iter().collect::<String>()}).collect();
 		all.append(&mut output.to_vec());
 		let mut numbers:HashMap<usize, String> = HashMap::new();
-		loop
+		
+		while numbers.len() < 10
 		{
 			for value in all.to_vec()
 			{
@@ -40,77 +41,56 @@ fn main()
 				{
 					numbers.insert(7, value);
 				}
-				else if value.len() == 5
+				else if value.len() == 5 && numbers.contains_key(&7)
 				{
-					if numbers.contains_key(&7)
+					if numbers.get(&7).unwrap().chars().all(|x| value.contains(x))
 					{
-						let compare_seven = numbers.get(&7).unwrap();
-						if compare_seven.chars().all(|x| value.contains(x))
+						numbers.insert(3, value);
+					}
+					else if numbers.contains_key(&6)
+					{
+						if value.chars().all(|x| numbers.get(&6).unwrap().contains(x))
 						{
-							numbers.insert(3, value);
+							numbers.insert(5, value);
 						}
 						else
 						{
-							if numbers.contains_key(&6)
-							{
-								let compare_six = numbers.get(&6).unwrap();
-								if value.chars().all(|x| compare_six.contains(x))
-								{
-									numbers.insert(5, value);
-								}
-								else
-								{
-									numbers.insert(2, value);
-								}
-							}
+							numbers.insert(2, value);
 						}
 					}
 				}
-				else if value.len() == 6
+				else if value.len() == 6 && numbers.contains_key(&4)
 				{
-					if numbers.contains_key(&3)
+					if numbers.get(&4).unwrap().chars().all(|x| value.contains(x))
 					{
-						let compare_three = numbers.get(&3).unwrap();
-						if compare_three.chars().all(|x| value.contains(x))
+						numbers.insert(9, value);
+					}
+					else if numbers.contains_key(&1)
+					{
+						if numbers.get(&1).unwrap().chars().all(|x| value.contains(x))
 						{
-							numbers.insert(9, value);
+							numbers.insert(0, value);
 						}
 						else
 						{
-							if numbers.contains_key(&1)
-							{
-								let compare_one = numbers.get(&1).unwrap();
-								if !compare_one.chars().all(|x| value.contains(x))
-								{
-									numbers.insert(6, value);
-								}
-								else
-								{
-									numbers.insert(0, value);
-								}
-							}
+							numbers.insert(6, value);
 						}
 					}
 				}
-			}
-			if numbers.len() == 10
-			{
-				break;
 			}
 		}
 		
-		let mut multiplier = 1000;
+		let mut multiplier = 10_usize.pow(output.len() as u32);
 		for value in output
 		{
-			let x = value.len();
-			if x == 2 || x == 3 || x == 4 || x == 7
-			{
-				result_1 += 1;
-			}
 			for (key, val) in numbers.iter()
 			{
 				if *val == value
 				{
+					if key == &1 || key == &4 || key == &7 || key == &8
+					{
+						result_1 += 1;
+					}
 					result_2 += multiplier * key;
 					multiplier /= 10;
 					break;
