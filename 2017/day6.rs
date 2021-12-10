@@ -61,7 +61,7 @@ fn main() {
 		// redistribute the max heap
 		vec[max_index] = 0;
 		
-		for i in 0..max_value
+		for _i in 0..max_value
 		{
 			max_index += 1;
 			if max_index >= vec.len()

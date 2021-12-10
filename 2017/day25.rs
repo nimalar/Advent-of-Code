@@ -4,7 +4,7 @@ fn main() {
 	let mut index:i32 = 0;
 	let mut summa = 0;
 	
-	for i in 0..12172063
+	for _i in 0..12172063
 	{
 		if index == tape.len() as i32
 		{

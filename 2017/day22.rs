@@ -20,7 +20,7 @@ fn main() {
 	let mut location:Vec<i32> = vec![(map.len()/2) as i32, (map.len()/2) as i32];
 	let mut facing:Vec<i32> = vec![-1, 0];
 	let mut infections = 0;
-	for i in 0..10000000
+	for _i in 0..10000000
 	{
 		// check the location and expand map if necessary
 		let x_len = map[0].len();

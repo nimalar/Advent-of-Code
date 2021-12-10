@@ -31,10 +31,10 @@ fn main() {
 	}
 	let mut input = vec![".#.".to_string(),"..#".to_string(),"###".to_string()];
 	// loop this shit 18 times
-	for i in 0..18
+	for _i in 0..18
 	{
-		let mut value = 0;
-		let mut size = 0;
+		let value;
+		let size;
 		//divisible by 2
 		if input.len() % 2 == 0
 		{
@@ -51,7 +51,7 @@ fn main() {
 		// all squares
 		let mut x = 0;
 		let mut y = 0;
-		for j in 0..size.pow(2)
+		for _j in 0..size.pow(2)
 		{
 			// all different possibilities * 8
 			let mut all_chars:Vec<&str> = Vec::new();

@@ -16,13 +16,12 @@ fn main() {
 	let f = File::open(filename).expect("File not found");
 	let reader = BufReader::new(f);
 	let mut particles:Vec<Particle> = Vec::new();
-	let mut index = 0;
 	
 	// read lines to vector
 	for line in reader.lines()
 	{	
 		let mut particle_vector:Vec<Vec<i32>> = Vec::new();
-		let mut l = line.unwrap();
+		let l = line.unwrap();
 		let input:Vec<&str> = l.split('<').collect();
 		for i in 1..input.len()
 		{

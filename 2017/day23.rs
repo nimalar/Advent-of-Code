@@ -42,11 +42,11 @@ fn part1() {
 		{
 			// determine if jump
 			let value = &instructions[index as usize][1];
-			let mut result = 0;
+			let result;
 			match value.parse::<i64>()
 			{
 				Ok(n) => result = n,
-				Err(e) => result = *register.entry(value).or_insert(0 as i64),
+				Err(_e) => result = *register.entry(value).or_insert(0 as i64),
 			}			
 			if result != 0
 			{
@@ -54,7 +54,7 @@ fn part1() {
 				match jump.parse::<i64>()
 				{
 					Ok(n) => index += n,
-					Err(e) => index += *register.entry(value).or_insert(0 as i64),
+					Err(_e) => index += *register.entry(value).or_insert(0 as i64),
 				}			
 			}
 			else
@@ -64,12 +64,12 @@ fn part1() {
 		}
 		else 
 		{
-			let mut inserted = &instructions[index as usize][2];
-			let mut new_value = 0;
+			let inserted = &instructions[index as usize][2];
+			let new_value;
 			match inserted.parse::<i64>()
 			{
 				Ok(n) => new_value = n,
-				Err(e) => new_value = *register.entry(inserted).or_insert(0 as i64),
+				Err(_e) => new_value = *register.entry(inserted).or_insert(0 as i64),
 			}
 			let value = register.entry(&instructions[index as usize][1]).or_insert(0 as i64);
 			
@@ -100,9 +100,9 @@ fn part2() {
 	let mut b = 57;
 	b *= 100;
 	b += 100000;
-	let mut c = b + 17000;
-	let mut d = 0;
-	let mut f = 0;
+	let c = b + 17000;
+	let mut d;
+	let mut f;
 	let mut h = 0;
 
 	loop
