@@ -1,6 +1,5 @@
 use std::env;
-use std::fs::File;
-use std::io::prelude::*;
+use std::fs::read_to_string;
 use std::collections::HashMap;
 
 fn get_route(start:String, ref caves:&HashMap<&str, Vec<&str>>, ref mut route:&mut Vec<String>, more_caves:bool) -> usize
@@ -29,11 +28,7 @@ fn get_route(start:String, ref caves:&HashMap<&str, Vec<&str>>, ref mut route:&m
 
 fn main() 
 {
-	let args: Vec<String> = env::args().collect();
-	let filename = &args[1];
-	let mut f = File::open(filename).expect("File not found");
-	let mut contents = String::new();
-	f.read_to_string(&mut contents).expect("something went wrong reading the file");
+	let contents = read_to_string(env::args().nth(1).unwrap()).expect("something went wrong reading the file");
 	let mut caves:HashMap<&str, Vec<&str>> = HashMap::new();
 	
 	for row in contents.lines()

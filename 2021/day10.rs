@@ -1,6 +1,5 @@
 use std::env;
-use std::fs::File;
-use std::io::prelude::*;
+use std::fs::read_to_string;
 
 fn match_chunks(opener:char, closer:char) -> usize
 {
@@ -37,12 +36,7 @@ fn add_openers(opener:char) -> usize
 
 fn main() 
 {
-	let args: Vec<String> = env::args().collect();
-	let filename = &args[1];
-	let mut f = File::open(filename).expect("File not found");
-	let mut contents = String::new();
-	f.read_to_string(&mut contents).expect("something went wrong reading the file");
-	
+	let contents = read_to_string(env::args().nth(1).unwrap()).expect("something went wrong reading the file");	
 	let mut scores:Vec<usize> = Vec::new();
 	let mut result = 0;
 	
