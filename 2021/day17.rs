@@ -7,15 +7,15 @@ fn main()
 	let mut max = 0;
 	let mut sum = 0;
 	
-	for x in -500..500
+	for x in 1..target_x.1+1
 	{
-		for y in -500..500
+		for y in target_y.0..500
 		{
 			let mut position = (0, 0);
 			let mut velocity = (x, y);
 			let mut target_reached = false;
 			let mut local_max = 0;
-			loop
+			while position.1 >= target_y.0 && position.0 <= target_x.1
 			{
 				position.0 += velocity.0;
 				position.1 += velocity.1;
@@ -34,17 +34,10 @@ fn main()
 				{
 					target_reached = true;
 				}
-				if target_reached
-				{
-					max = cmp::max(max, local_max);
-				}
-				if position.1 < target_y.0 || position.0 > target_x.1
-				{
-					break;
-				}
 			}
 			if target_reached
 			{
+				max = cmp::max(max, local_max);
 				sum += 1;
 			}
 		}
