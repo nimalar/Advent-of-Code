@@ -1,20 +1,14 @@
 use std::env;
 use std::fs::read_to_string;
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
+use std::cmp;
 
 fn dijkstra(graph:&Vec<Vec<u32>>)
 {
 	// Initializations
 	let mut q:HashMap<(i32, i32), u32> = HashMap::new(); // (x, y), dist
-	let mut previous:HashMap<(i32, i32), (i32, i32)> = HashMap::new();
-	for y in 0..graph.len()
-	{
-		for x in 0..graph[y].len()
-		{
-			q.insert((x as i32, y as i32), 9999); // "infinity"			
-			// previous node undefined
-		}
-	}
+	let mut v:HashSet<(i32, i32)> = HashSet::new();
+
 	// distance to source is 0
 	q.insert((0,0), 0);
 	
@@ -37,27 +31,26 @@ fn dijkstra(graph:&Vec<Vec<u32>>)
 		}
 		else if u == (graph.len() as i32 - 1, graph[0].len() as i32 - 1)
 		{
-			println!("{:?}", q.get(&u).unwrap());
+			println!("{}", q.get(&u).unwrap());
 			break; // destination reached
 		}
 		
 		let current = q.remove(&u).unwrap();
+		v.insert(u);
 		
 		// for each neighbour of u, calculate distance
 		for y in u.1 -1..u.1 +2
 		{
 			for x in u.0 -1..u.0 +2
 			{
-				if x >= 0 && y >= 0 && ((x == u.0) != (y == u.1)) && q.contains_key(&(x, y))
+				if x >= 0 && y >= 0 && x < graph.len() as i32 && y < graph[0].len() as i32 && 
+					((x == u.0) != (y == u.1)) && !v.contains(&(x, y))
 				{
 					let mut cost = current; // init with previous risk level
 					cost += graph[x as usize][y as usize]; // move
 					// if found distance is smaller than previous, replace it
-					if cost < *q.get(&(x, y)).unwrap()
-					{
-						q.insert((x, y), cost);
-						previous.insert((x, y), u);
-					}
+					let entry = q.entry((x, y)).or_insert(9999);
+					*entry = cmp::min(cost, *entry);
 				}
 			}
 		}		
@@ -74,6 +67,7 @@ fn main()
 		cave.push(row.chars().map(|value| value.to_digit(10).unwrap()).collect());
 	}
 	
+	print!("First star: ");
 	dijkstra(&cave);
 	
 	let cave_len = cave.len();
@@ -115,5 +109,6 @@ fn main()
 		risk += 1;
 	}
 	
+	print!("Second star: ");
 	dijkstra(&cave);
 }
